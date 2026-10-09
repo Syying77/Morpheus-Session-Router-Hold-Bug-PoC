@@ -29,9 +29,12 @@ After PR #830 fixed user rewards to use `min(closedAt, endsAt)`, provider hold p
 - `report.md` - Bounty v2 required format (TARGET/INVARIANT/IMPACT)
 
 ## Fix Verified
-// L268 - Fix _getProviderOnHoldAmount
+// L268
 uint128 sessionEnd_ = session.closedAt.min(session.endsAt);
-uint128 startOfSessionEnd_ = startOfTheDay(sessionEnd_);
+
+// L361-362
+bool isClosingLate_ = session.closedAt >= session.endsAt;
+uint256 hold_ = isClosingLate_ ? 0 : _getProviderOnHoldAmount(session, bid);
 
 // L361-362 - Fix claimForProvider
 bool isClosingLate_ = session.closedAt >= session.endsAt;
