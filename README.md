@@ -5,8 +5,10 @@ Morpheus SessionRouter Hold Inconsistency - Bounty v2
 ## 1-Click Reproduce for Morpheus Team
 
 git clone https://github.com/Syying77/Morpheus-Session-Router-Hold-Bug-PoC.git
+
 cd Morpheus-Session-Router-Hold-Bug-PoC
-python3 Analyzers.py
+chmod +X auto_analyzer.py 
+python3 auto_analyzer.py 
 # Expected Output: Late=True close=86400 claim=9600 DIFF=76800 BUG=True
 ## Foundry PoC
 forge install foundry-rs/forge-std --no-commit
