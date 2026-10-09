@@ -5,3 +5,10 @@ PRECONDITIONS: Session endsAt=1086400, closedAt=1200000 late, attacker is provid
 ATTACK:      1) provider opens session 2) wait endsAt passed 3) session closed late 1200000 4) provider calls claimForProvider() 5) gets 9600 not 86400
 POC:         https://github.com/Syying77/Morpheus-Session-Router-Hold-Bug-PoC/blob/main/PoC.t.sol
 FIX:         _getProviderOnHoldAmount: use sessionEnd_ = closedAt.min(endsAt); claimForProvider: hold_ = isClosingLate_ ? 0 : _getProviderOnHoldAmount()
+
+
+WALLET: 0x44c7c86b6b808c5750491748b24d008d587c1c37 (Arbitrum One)
+AUDITOR: syyinG777 | PTL Security 1909 - Whitehat
+EMAIL: syyinG09@protonmail.com
+GITHUB: @Syying77
+REPO: https://github.com/Syying77/Morpheus-Session-Router-Hold-Bug-PoC
