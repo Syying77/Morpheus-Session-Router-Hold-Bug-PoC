@@ -1,3 +1,18 @@
+
+## Tool for Morpheus Team - 1 Click Reproduce
+
+### Steps to reproduce:
+
+git clone https://github.com/Syying77/Morpheus-Session-Router-Hold-Bug-PoC.git
+cd Morpheus-Session-Router-Hold-Bug-PoC
+python3 auto_analyzer.py
+# Output: Late=True close=86400 claim=9600 DIFF=76800 BUG=True
+
+
+
+
+
+
 # Morpheus SessionRouter Hold Inconsistency - Bounty v2
 
 Severity: High | Loss: 88% | DIFF: 76800
