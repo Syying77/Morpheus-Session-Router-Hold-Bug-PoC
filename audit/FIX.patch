@@ -1,0 +1,35 @@
+diff --git a/smart-contracts/contracts/diamond/facets/SessionRouter.sol b/smart-contracts/contracts/diamond/facets/SessionRouter.sol
+index 0ef577b2..04db6680 100644
+--- a/smart-contracts/contracts/diamond/facets/SessionRouter.sol
++++ b/smart-contracts/contracts/diamond/facets/SessionRouter.sol
+@@ -265,15 +265,12 @@ contract SessionRouter is
+     }
+
+     function _getProviderOnHoldAmount(Session storage session, Bid storage bid) private view returns (uint256) {
+- uint128 startOfClosedAt = startOfTheDay(session.closedAt);
+- if (block.timestamp >= startOfClosedAt + 1 days) {
++ uint128 sessionEnd_ = session.closedAt.min(session.endsAt);
++ uint128 startOfSessionEnd_ = startOfTheDay(sessionEnd_);
++ if (block.timestamp >= startOfSessionEnd_ + 1 days) {
+             return 0;
+         }
+-
+- // `closedAt` - latest timestamp, cause `endsAt` bigger then `closedAt`
+- // Lock the provider's tokens for the current day.
+- // Withdrawal is allowed after a day after `startOfTheDay(session.closedAt)`.
+- return (session.closedAt - startOfClosedAt.max(session.openedAt)) * bid.pricePerSecond;
++ return (sessionEnd_ - startOfSessionEnd_.max(session.openedAt)) * bid.pricePerSecond;
+     }
+
+     function _rewardProviderAfterClose(bool noDispute_, Session storage session, Bid storage bid) internal {
+@@ -361,7 +358,9 @@ contract SessionRouter is
+
+         _validateDelegatee(_msgSender(), bid.provider, DELEGATION_RULES_SESSION);
+
+- uint256 amount_ = _getProviderRewards(session, bid, true) - _getProviderOnHoldAmount(session, bid);
++ bool isClosingLate_ = session.closedAt >= session.endsAt;
++ uint256 hold_ = isClosingLate_? 0 : _getProviderOnHoldAmount(session, bid);
++ uint256 amount_ = _getProviderRewards(session, bid, true) - hold_;
+
+         _claimForProvider(session, amount_);
+     }
