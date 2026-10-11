@@ -1,0 +1,8 @@
+Compiler run successful!
+
+Ran 2 tests for test/SessionRouter_Ethical_Repro.t.sol:SessionRouter_Ethical_Repro
+[PASS] test_bountyReport_DiamondLoupe() (gas: 6269)
+[PASS] test_holdLogic_ClaimBeforeClose() (gas: 2657)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.23s (17.70ms CPU time)
+
+Ran 1 test suite in 4.42s (2.23s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
